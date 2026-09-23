@@ -5,10 +5,33 @@ composition code extracted from
 [Sebeb/Pills-God](https://github.com/Sebeb/Pills-God) at commit
 [`ff0b89d1840cb2a3c411f52a607183a15db1dfcf`](https://github.com/Sebeb/Pills-God/tree/ff0b89d1840cb2a3c411f52a607183a15db1dfcf).
 
-This first commit is an attribution and provenance checkpoint. The source
-artifacts listed below are copied byte-for-byte from the pinned commit, with
-only their directories changed. They still contain Pills-God-specific
-dependencies and are not yet portable to an unrelated host project.
+The first commit is an attribution and provenance checkpoint. The second
+severs the original world-generator seam: visibility now receives a rectangular
+cell extent and three scalar settings, while hosts push reveal sources and
+occluder geometry into it.
+
+## World seam
+
+Create a `VisibilityWorldSettings` resource with `cell_size`, `wall_thickness`,
+and `wall_height`, then call:
+
+```gdscript
+visibility_manager.configure_world(Vector2i(width, height), settings)
+```
+
+Static occluders are `FogBlocker2D` nodes in the
+`visibility_blocker_2d` group. Dynamic providers join
+`visibility_segment_provider` and expose `get_visibility_segments_2d()` plus
+an optional revision getter. Reveal nodes are registered automatically.
+
+`FogRevealSource2D.corner_peek_solver` is optional and duck-typed. When set,
+the source calls `solve_corner_peek(origin, facing)` and expects a `Vector2`
+offset. A null solver is the no-peek path.
+
+The manager keeps its generic named-mask registry through
+`register_render_mask_surface(name, texture)`. Game-specific sound propagation,
+room-transition masks, wall knowledge, and cell discovery are deliberately not
+part of this addon.
 
 ## Extracted files
 
@@ -101,8 +124,8 @@ repository and are not represented as copied source files.
 ## Installation
 
 Add this repository at `addons/visibility` in a Godot project and enable the
-Visibility plugin. Portability work is intentionally deferred until after this
-provenance commit.
+Visibility plugin. Host-service portability is completed separately from the
+world seam so the history records each boundary change honestly.
 
 ## Licence
 

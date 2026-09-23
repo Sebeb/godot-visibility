@@ -34,7 +34,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if not _countdown_active:
 		return
-	_countdown_remaining -= WorldTime.scale_delta(delta)
+	# The host advances this controller with its chosen simulation delta.
+	_countdown_remaining -= delta
 	if _countdown_remaining <= 0.0:
 		_countdown_active = false
 		_on_timer_timeout()

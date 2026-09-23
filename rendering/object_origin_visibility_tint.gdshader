@@ -1,7 +1,7 @@
 shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_burley, specular_schlick_ggx;
 
-#include "res://rendering/visibility_mask_common.gdshaderinc"
+#include "res://addons/visibility/rendering/visibility_mask_common.gdshaderinc"
 
 uniform vec4 albedo_color : source_color = vec4(1.0);
 uniform bool use_texture_albedo = false;
@@ -42,7 +42,7 @@ void vertex() {
 }
 
 float sample_visibility() {
-	// Per-fragment lookup, like maze_walls_visibility.gdshader, so a mesh straddling
+	// Per-fragment lookup, like world_walls_visibility.gdshader, so a mesh straddling
 	// the fog edge fades across its own surface instead of popping as one unit.
 	// The entity-root offset keeps the whole draw anchored where MaskManager placed it,
 	// so nested wobble/billboard transforms still cannot drag the lookup around.

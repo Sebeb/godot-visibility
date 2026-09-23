@@ -1,7 +1,7 @@
 extends Node
 class_name RenderMaskCompositor
 
-const COMPOSITE_SHADER := preload("res://rendering/render_mask_composite.gdshader")
+const COMPOSITE_SHADER := preload("res://addons/visibility/rendering/render_mask_composite.gdshader")
 const MODE_OFF := 0
 const MODE_ADDITIVE := 1
 const MODE_MULTIPLICATIVE := 2

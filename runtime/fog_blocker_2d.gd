@@ -5,7 +5,7 @@ class_name FogBlocker2D
 
 signal blocker_changed(blocker: FogBlocker2D, revision: int)
 
-const BLOCKER_GROUP := "fog_blocker_2d"
+const BLOCKER_GROUP := "visibility_blocker_2d"
 
 var _geometry_revision := -1
 var _polygon := PackedVector2Array()
@@ -93,11 +93,11 @@ func _apply_capture_geometry() -> void:
 
 func _resolve_manager_once() -> void:
 	if get_tree() != null:
-		_manager = get_tree().get_first_node_in_group("fog_camera_manager")
+		_manager = get_tree().get_first_node_in_group("visibility_manager")
 
 
 func _on_tree_node_added(node: Node) -> void:
-	if node.is_in_group("fog_camera_manager"):
+	if node.is_in_group("visibility_manager"):
 		_manager = node
 		get_tree().node_added.disconnect(_on_tree_node_added)
 		_manager.call("register_fog_blocker", self)

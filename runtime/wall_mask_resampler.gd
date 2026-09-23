@@ -1,7 +1,7 @@
 extends Node
 class_name WallMaskResampler
 
-const RESAMPLE_SHADER := preload("res://rendering/wall_mask_resample.gdshader")
+const RESAMPLE_SHADER := preload("res://addons/visibility/rendering/wall_mask_resample.gdshader")
 
 var _viewport: SubViewport = null
 var _rect: ColorRect = null

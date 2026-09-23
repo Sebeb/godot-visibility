@@ -15,12 +15,12 @@ uniform bool source_is_premultiplied = false;
 // PGO-96 stage ④: `source_tex` (when present) is a render layer's own raw
 // texture, sampled 1:1 at this composite's UV (the destination viewport is
 // always sized to match it). The mask textures (`mask_0`..`mask_3`) are
-// always rendered at full-maze resolution regardless of the render layer's
-// own coverage sub-rect, so they need remapping into full-maze UV space:
+// always rendered at full-world resolution regardless of the render layer's
+// own coverage sub-rect, so they need remapping into full-world UV space:
 // `mask_uv = UV * uv_scale + uv_offset`, where `uv_offset`/`uv_scale` are the
 // render layer's `coverage.world_rect` expressed as a fraction of the full
-// maze (see `FogCameraManager._update_render_mask_outputs_if_needed`).
-// Defaults (0,0)/(1,1) are the identity mapping used for the full-maze
+// world (see `FogCameraManager._update_render_mask_outputs_if_needed`).
+// Defaults (0,0)/(1,1) are the identity mapping used for the full-world
 // `game_world` target, which never sets these.
 uniform vec2 uv_offset = vec2(0.0, 0.0);
 uniform vec2 uv_scale = vec2(1.0, 1.0);

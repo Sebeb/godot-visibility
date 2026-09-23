@@ -24,7 +24,7 @@ class_name PackedVisibilityCapture
 ## channels for three lanes, and would put a rendering-critical gameplay surface
 ## at risk for no gain. This surface is instead a plain unshaded additive paint
 ## of the SAME authoritative geometry, at the SAME size, over the SAME
-## wall-inclusive maze rect, so the pack kernel can treat the two as one
+## wall-inclusive world rect, so the pack kernel can treat the two as one
 ## coordinate space. One extra texture carries three lanes.
 ##
 ## The blocker lane is painted from `FogBlocker2D.get_polygon()` — byte for byte
@@ -55,8 +55,8 @@ var _revision := 0
 var _redraw_count := 0
 
 
-## Mirrors the current-visibility capture's size and maze rect. Everything drawn
-## here uses the same maze-local coordinates the capture root does, so the two
+## Mirrors the current-visibility capture's size and world rect. Everything drawn
+## here uses the same world-local coordinates the capture root does, so the two
 ## surfaces are texel-aligned by construction rather than by convention.
 func configure(size: Vector2i, capture_rect: Rect2) -> void:
 	_ensure_nodes()
@@ -74,13 +74,13 @@ func configure(size: Vector2i, capture_rect: Rect2) -> void:
 
 
 ## Repaints the lanes if anything they depend on changed. `sources` and
-## `blockers` are the manager's live registries; `maze_pixels_to_world` is the
-## same gameplay-pixels-to-maze-world scale the capture lights are placed with.
+## `blockers` are the manager's live registries; `world_pixels_to_world` is the
+## same gameplay-pixels-to-world-world scale the capture lights are placed with.
 func sync(
 	sources: Array,
 	blockers: Array,
 	seed_radius_world: float,
-	maze_pixels_to_world: float
+	world_pixels_to_world: float
 ) -> void:
 	_ensure_nodes()
 	var signature_parts := PackedStringArray([
@@ -99,7 +99,7 @@ func sync(
 		var enabled := bool(source.call("is_effectively_enabled"))
 		var bypass := not bool(source.get("occlusion_enabled"))
 		painter.visible = enabled and seed_radius_world > 0.0
-		painter.position = (source.call("get_effective_origin") as Vector2) * maze_pixels_to_world
+		painter.position = (source.call("get_effective_origin") as Vector2) * world_pixels_to_world
 		painter.scale = Vector2.ONE * (seed_radius_world * 2.0 / float(SEED_TEXTURE_RESOLUTION))
 		painter.modulate = LANE_SEED_BYPASS if bypass else LANE_SEED_NORMAL
 		signature_parts.append("s%d:%d:%d:%.3f,%.3f" % [

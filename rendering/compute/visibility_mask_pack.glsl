@@ -7,7 +7,7 @@
 //
 // Inputs are two textures that share one coordinate space (both are rendered at
 // the current-visibility capture viewport's size, over the same wall-inclusive
-// maze rect):
+// world rect):
 //   substrate_tex — the composed `game_world` render mask (red channel).
 //   aux_tex       — the packed auxiliary capture: r = normal reveal seed,
 //                   g = occlusion-bypass reveal seed, b = fog blocker geometry.

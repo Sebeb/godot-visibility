@@ -7,8 +7,7 @@ path="res://.godot/imported/visibility_mask_pack.glsl-cfcc9325caff35f8e333fccc36
 
 [deps]
 
-source_file="res://rendering/compute/visibility_mask_pack.glsl"
+source_file="res://addons/visibility/rendering/compute/visibility_mask_pack.glsl"
 dest_files=["res://.godot/imported/visibility_mask_pack.glsl-cfcc9325caff35f8e333fccc36510452.res"]
 
 [params]
-

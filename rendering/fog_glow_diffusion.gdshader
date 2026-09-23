@@ -5,7 +5,7 @@ uniform sampler2D previous_tex : source_color, filter_linear;
 uniform sampler2D cell_open_tex : source_color, filter_nearest;
 
 uniform vec2 texel_size = vec2(0.001);
-uniform vec2 maze_size_cells = vec2(1.0);
+uniform vec2 world_size_cells = vec2(1.0);
 uniform float diffusion_rate : hint_range(0.0, 1.0) = 0.12;
 uniform float propagation_decay : hint_range(0.0, 1.0) = 0.97;
 uniform float unseen_glow_cap : hint_range(0.0, 1.0) = 1.0;
@@ -16,7 +16,7 @@ float sample_prev(vec2 uv) {
 }
 
 vec4 sample_cell_open(vec2 cell_coord) {
-	vec2 safe_cells = max(maze_size_cells, vec2(1.0));
+	vec2 safe_cells = max(world_size_cells, vec2(1.0));
 	vec2 clamped_cell = clamp(cell_coord, vec2(0.0), safe_cells - vec2(1.0));
 	vec2 cell_uv = (clamped_cell + vec2(0.5)) / safe_cells;
 	return texture(cell_open_tex, cell_uv);
@@ -28,7 +28,7 @@ bool can_step(vec2 uv, vec2 delta) {
 		return false;
 	}
 
-	vec2 safe_cells = max(maze_size_cells, vec2(1.0));
+	vec2 safe_cells = max(world_size_cells, vec2(1.0));
 	vec2 uv_safe = min(uv, vec2(0.999999));
 	vec2 uv_next_safe = min(uv_next, vec2(0.999999));
 	vec2 cell = floor(uv_safe * safe_cells);

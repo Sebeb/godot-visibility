@@ -26,12 +26,12 @@ class_name OrganicVisibilityMaskSimulation
 ## The only readback in the file is inside `seed_islands()`, the explicitly
 ## manual island-seeding command the Goal carves out for it.
 
-const SchedulerScript := preload("res://systems/maze/organic_visibility_mask_scheduler.gd")
-const PACK_SHADER_PATH := "res://rendering/compute/visibility_mask_pack.glsl"
-const HALO_SHADER_PATH := "res://rendering/compute/visibility_mask_halo.glsl"
-const PHASE_SHADER_PATH := "res://rendering/compute/visibility_mask_phase.glsl"
-const CREEP_SHADER_PATH := "res://rendering/compute/visibility_mask_creep.glsl"
-const PRESENT_SHADER_PATH := "res://rendering/compute/visibility_mask_present.glsl"
+const SchedulerScript := preload("res://addons/visibility/runtime/organic_visibility_mask_scheduler.gd")
+const PACK_SHADER_PATH := "res://addons/visibility/rendering/compute/visibility_mask_pack.glsl"
+const HALO_SHADER_PATH := "res://addons/visibility/rendering/compute/visibility_mask_halo.glsl"
+const PHASE_SHADER_PATH := "res://addons/visibility/rendering/compute/visibility_mask_phase.glsl"
+const CREEP_SHADER_PATH := "res://addons/visibility/rendering/compute/visibility_mask_creep.glsl"
+const PRESENT_SHADER_PATH := "res://addons/visibility/rendering/compute/visibility_mask_present.glsl"
 
 const WORKGROUP_SIZE := 8
 const MIN_SIM_AXIS := 8
@@ -137,7 +137,7 @@ func configure(configuration: Dictionary) -> void:
 
 ## Binds this frame's inputs. `substrate` is the composed `game_world` mask and
 ## `auxiliary` is the packed seed/bypass/blocker capture; both are rendered over
-## the same wall-inclusive maze rect at the same size, which is what lets the
+## the same wall-inclusive world rect at the same size, which is what lets the
 ## pack kernel treat them as one coordinate space.
 func set_inputs(
 	substrate: Texture2D,
@@ -287,7 +287,7 @@ func debug_get_snapshot() -> Dictionary:
 	}
 
 
-## Effective phase-field front velocity in maze cells per second for a FLAT
+## Effective phase-field front velocity in world cells per second for a FLAT
 ## front. Curvature and blockers legitimately change the local apparent speed:
 ## a convex boundary loses to its own renormalised neighbourhood and advances
 ## slower, a concave one faster, and a blocker that removes taps changes both.
@@ -316,7 +316,7 @@ static func flat_front_gradient(sharpness: float, corner_weight: float) -> float
 	return 1.0 / maxf(0.0001, sqrt(profile_variance) * sqrt(TAU))
 
 
-## Converts a user-facing front speed in maze cells per second into the signed
+## Converts a user-facing front speed in world cells per second into the signed
 ## per-tick bias the phase kernel applies.
 static func bias_for_speed(
 	cells_per_second: float,

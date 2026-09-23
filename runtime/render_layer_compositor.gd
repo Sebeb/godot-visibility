@@ -4,8 +4,8 @@ class_name RenderLayerCompositor
 ## Demand-driven RGBA compositor for one render-layer output. Members are
 ## ordered back-to-front direct-capture bands or promoted cache textures.
 
-const COMPOSITE_SHADER := preload("res://rendering/render_layer_color_composite.gdshader")
-const MASK_VISUALIZATION_SHADER := preload("res://rendering/render_layer_mask_visualization.gdshader")
+const COMPOSITE_SHADER := preload("res://addons/visibility/rendering/render_layer_color_composite.gdshader")
+const MASK_VISUALIZATION_SHADER := preload("res://addons/visibility/rendering/render_layer_mask_visualization.gdshader")
 
 signal refreshed(target: StringName, revision: int)
 

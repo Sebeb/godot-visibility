@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" format=3 uid="uid://bgoyughnnf0rn"]
 
-[ext_resource type="Shader" uid="uid://cdqkeorreye4o" path="res://rendering/sprite_visibility_masked.gdshader" id="1_shader"]
+[ext_resource type="Shader" uid="uid://cdqkeorreye4o" path="res://addons/visibility/rendering/sprite_visibility_masked.gdshader" id="1_shader"]
 
 [resource]
 render_priority = 0
@@ -9,9 +9,7 @@ shader_parameter/roughness = 1.0
 shader_parameter/specular = 0.5
 shader_parameter/alpha_scissor_threshold = 0.5
 shader_parameter/visibility_mask_enabled = false
-shader_parameter/camera_room_mask_enabled = false
-shader_parameter/camera_room_mask_blend = 1.0
 shader_parameter/visibility_world_origin = Vector3(0, 0, 0)
-shader_parameter/visibility_world_to_maze_basis = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
-shader_parameter/visibility_maze_min_xz = Vector2(0, 0)
-shader_parameter/visibility_maze_size_xz = Vector2(1, 1)
+shader_parameter/visibility_world_to_local_basis = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
+shader_parameter/visibility_local_min_xz = Vector2(0, 0)
+shader_parameter/visibility_local_size_xz = Vector2(1, 1)
