@@ -1,0 +1,14 @@
+[remap]
+
+importer="glsl"
+type="RDShaderFile"
+uid="uid://di37gv1hea7oj"
+path="res://.godot/imported/visibility_mask_halo.glsl-975937b8e399dfd0d19da798d6887d92.res"
+
+[deps]
+
+source_file="res://rendering/compute/visibility_mask_halo.glsl"
+dest_files=["res://.godot/imported/visibility_mask_halo.glsl-975937b8e399dfd0d19da798d6887d92.res"]
+
+[params]
+
