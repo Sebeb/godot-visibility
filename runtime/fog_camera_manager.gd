@@ -16,6 +16,7 @@ const FOG_MEMORY_DECAY_CONTROLLER_SCENE_PATH := "res://addons/visibility/runtime
 
 @export_range(1, 128, 1) var capture_resolution_per_grid_square := 24
 @export_range(1, 64, 1) var history_dirty_tile_resolution := 8
+@export var tuning: VisibilityTuning = null
 
 var _grid_size := Vector2i.ZERO
 var _world_settings: VisibilityWorldSettings = null
@@ -41,6 +42,8 @@ var _revision := 0
 
 
 func _ready() -> void:
+	if tuning == null:
+		tuning = VisibilityTuning.new()
 	add_to_group(FOG_MANAGER_GROUP)
 	_ensure_capture_graph()
 	_register_existing_components()
@@ -86,6 +89,12 @@ func get_grid_size() -> Vector2i:
 
 func get_world_settings() -> VisibilityWorldSettings:
 	return _world_settings
+
+
+func get_visibility_tuning() -> VisibilityTuning:
+	if tuning == null:
+		tuning = VisibilityTuning.new()
+	return tuning
 
 
 func get_visibility_rect() -> Rect2:

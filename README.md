@@ -10,6 +10,10 @@ severs the original world-generator seam: visibility now receives a rectangular
 cell extent and three scalar settings, while hosts push reveal sources and
 occluder geometry into it.
 
+The runtime class remains `FogCameraManager` for compatibility. Its
+`visibility_manager` group name reflects the portable contract; renaming the
+class would only churn consumers without making that contract clearer.
+
 ## World seam
 
 Create a `VisibilityWorldSettings` resource with `cell_size`, `wall_thickness`,
@@ -32,6 +36,18 @@ The manager keeps its generic named-mask registry through
 `register_render_mask_surface(name, texture)`. Game-specific sound propagation,
 room-transition masks, wall knowledge, and cell discovery are deliberately not
 part of this addon.
+
+## Optional host services
+
+The addon loads without Console, StateStore, SharedStateKeys, or GameplayConfig.
+It registers the `FogCameraManager` editor type but creates no runtime nodes, so
+an enabled plugin is inert until a host instantiates the manager.
+
+Each manager owns a `VisibilityTuning` resource. Its shipped decay defaults work
+without any host service. A host may set `tuning.state_adapter` to an object
+implementing `get_value(path, default_value)` and
+`connect_changed(path, callback)`. Implementing
+`disconnect_changed(path, callback)` is optional and supports clean teardown.
 
 ## Extracted files
 
